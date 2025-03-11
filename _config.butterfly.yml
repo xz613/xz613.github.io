@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: /img/star.png # 图片
+  logo: /img/avator.png # 图片
   display_title: true
   fixed: false # 固定导航栏
 
@@ -67,12 +67,12 @@ avatar:
 disable_top_img: false
 
 # 首页的横幅图片
-index_img: /img/bj.jpg
+index_img: /img/leaf.jpg
 
 
 # 如果页面没有设置横幅，则显示顶部图片
 default_top_img:
-  url: /img/BlogBackground.png
+  url: /img/bj.png
 # 归档页面的横幅图片
 archive_img:
 

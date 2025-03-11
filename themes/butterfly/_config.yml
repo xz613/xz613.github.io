@@ -3,7 +3,7 @@
 # --------------------------------------
 
 nav:
-  logo: /img/star.png # 图片
+  logo: /img/avator.png # 图片
   display_title: true
   fixed: false # 固定导航栏
 
