@@ -1,0 +1,568 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Mybatis黑马笔记 | 他乡遇故知</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MyBatis  黑马课程对应资料1 Mybatis概述1.1 Mybatis概念  MyBatis 是一款优秀的持久层框架，用于简化 JDBC 开发 MyBatis 本是 Apache 的一个开源项目iBatis, 2010年这个项目由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github 官网：htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis黑马笔记">
+<meta property="og:url" content="https://xz613.github.io/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="他乡遇故知">
+<meta property="og:description" content="MyBatis  黑马课程对应资料1 Mybatis概述1.1 Mybatis概念  MyBatis 是一款优秀的持久层框架，用于简化 JDBC 开发 MyBatis 本是 Apache 的一个开源项目iBatis, 2010年这个项目由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github 官网：htt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xz613.github.io/img/avator.png">
+<meta property="article:published_time" content="2025-03-11T11:06:54.000Z">
+<meta property="article:modified_time" content="2025-03-11T11:07:38.232Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xz613.github.io/img/avator.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mybatis黑马笔记",
+  "url": "https://xz613.github.io/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/",
+  "image": "https://xz613.github.io/img/avator.png",
+  "datePublished": "2025-03-11T11:06:54.000Z",
+  "dateModified": "2025-03-11T11:07:38.232Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "https://xz613.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xz613.github.io/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.3.5"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mybatis黑马笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: [object Object];"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: [object Object];"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/avator.png" alt="Logo"><span class="site-name">他乡遇故知</span></a><a class="nav-page-title" href="/"><span class="site-name">Mybatis黑马笔记</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Mybatis黑马笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-11T11:06:54.000Z" title="发表于 2025-03-11 19:06:54">2025-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-11T11:07:38.232Z" title="更新于 2025-03-11 19:07:38">2025-03-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="MyBatis-黑马课程对应资料"><a href="#MyBatis-黑马课程对应资料" class="headerlink" title="MyBatis  黑马课程对应资料"></a>MyBatis  黑马课程对应资料</h2><h2 id="1-Mybatis概述"><a href="#1-Mybatis概述" class="headerlink" title="1 Mybatis概述"></a>1 Mybatis概述</h2><h3 id="1-1-Mybatis概念"><a href="#1-1-Mybatis概念" class="headerlink" title="1.1 Mybatis概念"></a>1.1 Mybatis概念</h3><blockquote>
+<ul>
+<li>MyBatis 是一款优秀的持久层框架，用于简化 JDBC 开发</li>
+<li>MyBatis 本是 Apache 的一个<a target="_blank" rel="noopener" href="https://edu.csdn.net/cloud/pm_summit?utm_source=blogglc&spm=1001.2101.3001.7020">开源</a>项目<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=iBatis&spm=1001.2101.3001.7020">iBatis</a>, 2010年这个项目由apache software foundation 迁移到了google code，并且改名为MyBatis 。2013年11月迁移到Github</li>
+<li>官网：<a target="_blank" rel="noopener" href="https://mybatis.org/mybatis-3/zh/index.html">https://mybatis.org/mybatis-3/zh/index.html</a></li>
+</ul>
+</blockquote>
+<p><strong>持久层：</strong></p>
+<ul>
+<li><p>负责将数据到保存到数据库的那一层代码。</p>
+<p>以后开发我们会将操作数据库的Java代码作为<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%8C%81%E4%B9%85%E5%B1%82&spm=1001.2101.3001.7020">持久层</a>。而Mybatis就是对jdbc代码进行了封装。</p>
+</li>
+<li><p>JavaEE三层架构：表现层、业务层、持久层</p>
+<p>三层架构在后期会给大家进行讲解，今天先简单的了解下即可。</p>
+</li>
+</ul>
+<p><strong>框架：</strong></p>
+<ul>
+<li>框架就是一个半成品软件，是一套可重用的、通用的、软件基础代码模型</li>
+<li>在框架的基础之上构建软件编写更加高效、规范、通用、可扩展</li>
+</ul>
+<p>举例给大家简单的解释一下什么是半成品<a target="_blank" rel="noopener" href="https://marketing.csdn.net/p/3127db09a98e0723b83b2914d9256174?pId=2782&utm_source=glcblog&spm=1001.2101.3001.7020">软件</a>。大家小时候应该在公园见过给石膏娃娃涂鸦</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/af413bb490d48a311d45788aa14d037e.png" alt="image-20230309162158161"></p>
+<p>如下图所示有一个石膏娃娃，这个就是一个半成品。你可以在这个半成品的基础上进行不同颜色的涂鸦</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0741a309a828f1ba54221551cf66078d.png" alt="image-20230309162259236"></p>
+<p>了解了什么是Mybatis后，接下来说说以前 <code>JDBC代码</code> 的缺点以及Mybatis又是如何解决的。</p>
+<h3 id="1-2-JDBC-缺点"><a href="#1-2-JDBC-缺点" class="headerlink" title="1.2 JDBC 缺点"></a>1.2 JDBC 缺点</h3><p>下面是 JDBC 代码，我们通过该代码分析都存在什么缺点：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/fafd07aecf2c1252f945731d7deb31bf.png" alt="image-20230309162305057"></p>
+<ul>
+<li><p>硬编码</p>
+<ul>
+<li><p>注册驱动、获取连接</p>
+<p>上图标1的代码有很多字符串，而这些是连接数据库的四个基本信息，以后如果要将Mysql数据库换成其他的关系型数据库的话，这四个地方都需要修改，如果放在此处就意味着要修改我们的源代码。</p>
+</li>
+<li><p>SQL语句</p>
+<p>上图标2的代码。如果表结构发生变化，SQL语句就要进行更改。这也不方便后期的维护。</p>
+</li>
+</ul>
+</li>
+<li><p>操作繁琐</p>
+<ul>
+<li><p>手动设置参数</p>
+</li>
+<li><p>手动封装结果集</p>
+<p>上图标4的代码是对查询到的数据进行封装，而这部分代码是没有什么技术含量，而且特别耗费时间的。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-Mybatis-优化"><a href="#1-3-Mybatis-优化" class="headerlink" title="1.3 Mybatis 优化"></a>1.3 Mybatis 优化</h3><ul>
+<li>硬编码可以配置到配置文件</li>
+<li>操作繁琐的地方mybatis都自动完成</li>
+</ul>
+<p>如图所示</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/9a45d8dba75fcde4d11427d0fec1e467.png" alt="image-20230309195035122"></p>
+<p>下图是持久层框架的使用占比。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/23fd2d0864d8f82420302c96e0c08100.png" alt="image-20230309195041713"></p>
+<h2 id="2-Mybatis快速入门"><a href="#2-Mybatis快速入门" class="headerlink" title="2 Mybatis快速入门"></a>2 Mybatis快速入门</h2><p><strong>需求：查询user表中所有的数据</strong></p>
+<ul>
+<li><p>创建user表，添加数据</p>
+<pre><code class="highlight sql"><span class="keyword">create</span> database mybatis;
+use mybatis;
+
+<span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> tb_user;
+
+<span class="keyword">create table</span> tb_user(
+	id <span class="type">int</span> <span class="keyword">primary key</span> auto_increment,
+	username <span class="type">varchar</span>(<span class="number">20</span>),
+	password <span class="type">varchar</span>(<span class="number">20</span>),
+	gender <span class="type">char</span>(<span class="number">1</span>),
+	addr <span class="type">varchar</span>(<span class="number">30</span>)
+);
+
+<span class="keyword">INSERT INTO</span> tb_user <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;zhangsan&#x27;</span>, <span class="string">&#x27;123&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;北京&#x27;</span>);
+<span class="keyword">INSERT INTO</span> tb_user <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;李四&#x27;</span>, <span class="string">&#x27;234&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="string">&#x27;天津&#x27;</span>);
+<span class="keyword">INSERT INTO</span> tb_user <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;王五&#x27;</span>, <span class="string">&#x27;11&#x27;</span>, <span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;西安&#x27;</span>);
+<span class="number">12345678910111213141516</span></code></pre>
+</li>
+<li><p>创建模块，导入坐标</p>
+<p>在创建好的模块中的 pom.xml 配置文件中添加依赖的坐标</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>
+    <span class="comment">&lt;!--mybatis 依赖--&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+
+    <span class="comment">&lt;!--mysql 驱动--&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.46<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+
+    <span class="comment">&lt;!--junit 单元测试--&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+
+    <span class="comment">&lt;!-- 添加slf4j日志api --&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+    <span class="comment">&lt;!-- 添加logback-classic依赖 --&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+    <span class="comment">&lt;!-- 添加logback-core依赖 --&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span>
+123456789101112131415161718192021222324252627282930313233343536373839404142</code></pre>
+
+<p>注意：需要在项目的 resources 目录下创建logback的配置文件</p>
+</li>
+<li><p>编写 MyBatis 核心配置文件 – &gt; 替换连接信息 解决硬编码问题</p>
+<p>在模块下的 resources 目录下创建mybatis的配置文件 <code>mybatis-config.xml</code>，内容如下：</p>
+<pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span>
+<span class="meta">&lt;!DOCTYPE <span class="keyword">configuration</span></span>
+<span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span>
+<span class="meta">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">configuration</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;com.itheima.pojo&quot;</span>/&gt;</span>
+    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span>
+    
+    <span class="comment">&lt;!--</span>
+<span class="comment">    environments：配置数据库连接环境信息。可以配置多个environment，通过default属性切换不同的environment</span>
+<span class="comment">    --&gt;</span>
+    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;development&quot;</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span>
+                <span class="comment">&lt;!--数据库连接信息--&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///mybatis?useSSL=false&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1234&quot;</span>/&gt;</span>
+            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span>
+
+        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span>
+                <span class="comment">&lt;!--数据库连接信息--&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///mybatis?useSSL=false&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span>
+                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1234&quot;</span>/&gt;</span>
+            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span>
+       <span class="comment">&lt;!--加载sql映射文件--&gt;</span>
+       <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;UserMapper.xml&quot;</span>/&gt;</span>
+    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>
+1234567891011121314151617181920212223242526272829303132333435363738394041</code></pre>
+</li>
+<li><p>编写 SQL 映射文件 –&gt; 统一管理sql语句，解决硬编码问题</p>
+<p>在模块的 <code>resources</code> 目录下创建映射配置文件 <code>UserMapper.xml</code>，内容如下：</p>
+<pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span>
+<span class="meta">&lt;!DOCTYPE <span class="keyword">mapper</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;test&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.itheima.pojo.User&quot;</span>&gt;</span>
+        select * from tb_user;
+    <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">mapper</span>&gt;</span>
+1234567</code></pre>
+</li>
+<li><p>编码</p>
+<ul>
+<li><p>在 <code>com.itheima.pojo</code> 包下创建 User类</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;
+    <span class="keyword">private</span> <span class="type">int</span> id;
+    <span class="keyword">private</span> String username;
+    <span class="keyword">private</span> String password;
+    <span class="keyword">private</span> String gender;
+    <span class="keyword">private</span> String addr;
+    
+    <span class="comment">//省略了 setter 和 getter</span>
+&#125;
+<span class="number">123456789</span></code></pre>
+</li>
+<li><p>在 <code>com.itheima</code> 包下编写 MybatisDemo 测试类</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisDemo</span> &#123;
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;
+        <span class="comment">//1. 加载mybatis的核心配置文件，获取 SqlSessionFactory</span>
+        <span class="type">String</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="string">&quot;mybatis-config.xml&quot;</span>;
+        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Resources.getResourceAsStream(resource);
+        <span class="type">SqlSessionFactory</span> <span class="variable">sqlSessionFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBuilder</span>().build(inputStream);
+
+        <span class="comment">//2. 获取SqlSession对象，用它来执行sql</span>
+        <span class="type">SqlSession</span> <span class="variable">sqlSession</span> <span class="operator">=</span> sqlSessionFactory.openSession();
+        <span class="comment">//3. 执行sql</span>
+        List&lt;User&gt; users = sqlSession.selectList(<span class="string">&quot;test.selectAll&quot;</span>); <span class="comment">//参数是一个字符串，该字符串必须是映射配置文件的namespace.id</span>
+        System.out.println(users);
+        <span class="comment">//4. 释放资源</span>
+        sqlSession.close();
+    &#125;
+&#125;
+<span class="number">1234567891011121314151617</span></code></pre></li>
+</ul>
+</li>
+</ul>
+<p><strong>解决SQL映射文件的警告提示：</strong></p>
+<p>在入门案例映射配置文件中存在报红的情况。问题如下：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/a3e11d23cff7b2e057f379060068b347.png" alt="image-20230309195053881"></p>
+<ul>
+<li>产生的原因：Idea和数据库没有建立连接，不识别表信息。但是大家一定要记住，它并不影响程序的执行。</li>
+<li>解决方式：在Idea中配置MySQL数据库连接。</li>
+</ul>
+<p>IDEA中配置MySQL数据库连接</p>
+<ul>
+<li>点击IDEA右边框的 <code>Database</code> ，在展开的界面点击 <code>+</code> 选择 <code>Data Source</code> ，再选择 <code>MySQL</code></li>
+</ul>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/01698e805a56ef538d2a1c712118f579.png" alt="img"></p>
+<ul>
+<li><p>在弹出的界面进行基本信息的填写</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/da5146195ba7813f7a401a06774f16c1.png" alt="image-20230309195122696"></p>
+</li>
+<li><p>点击完成后就能看到如下界面</p>
+</li>
+</ul>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/1c68d536d89450bd49cf9082bc684d21.png" alt="img"></p>
+<p>而此界面就和 <code>navicat</code> 工具一样可以进行数据库的操作。也可以编写SQL语句</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/72d766e731838b90b0fb049126f26810.png" alt="image-20230309195141378"></p>
+<h2 id="3-Mapper代理开发"><a href="#3-Mapper代理开发" class="headerlink" title="3 Mapper代理开发"></a>3 Mapper代理开发</h2><h3 id="3-1-Mapper代理开发概述"><a href="#3-1-Mapper代理开发概述" class="headerlink" title="3.1 Mapper代理开发概述"></a>3.1 Mapper代理开发概述</h3><p>之前我们写的代码是基本使用方式，它也存在硬编码的问题，如下：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/ff77431f2282e63d12c97391ddb16a75.png" alt="image-20230309195212513"></p>
+<p>这里调用 <code>selectList()</code> 方法传递的参数是映射配置文件中的 namespace.id值。这样写也不便于后期的维护。如果使用 Mapper 代理方式（如下图）则不存在硬编码问题。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/3e0bf955c582d5681e95c815adb0f352.png" alt="image-20230309195239248"></p>
+<p>通过上面的描述可以看出 Mapper 代理方式的目的：</p>
+<ul>
+<li>解决原生方式中的硬编码</li>
+<li>简化后期执行SQL</li>
+</ul>
+<p>Mybatis 官网也是推荐使用 Mapper 代理的方式。下图是截止官网的图片</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/b91ded925b305bb5515cc037229d3277.png" alt="image-20210726215339568"></p>
+<h3 id="3-2-使用Mapper代理要求"><a href="#3-2-使用Mapper代理要求" class="headerlink" title="3.2 使用Mapper代理要求"></a>3.2 使用Mapper代理要求</h3><p>使用Mapper代理方式，必须满足以下要求：</p>
+<ul>
+<li><p>定义与SQL映射文件同名的Mapper接口，并且将Mapper接口和SQL映射文件放置在同一目录下。如下图：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/40fc9f8f9d37bf099e1fffe40ff11591.png" alt="img"></p>
+</li>
+<li><p>设置SQL映射文件的namespace属性为Mapper接口全限定名</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/45ba5c1db15f9917479fdf165423bfda.png" alt="image-20230309195515116"></p>
+</li>
+<li><p>在 Mapper 接口中定义方法，方法名就是SQL映射文件中sql语句的id，并保持参数类型和返回值类型一致</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/cba3652e42bb0c456bd4a8839bb518d9.png" alt="img"></p>
+</li>
+</ul>
+<h3 id="3-3-案例代码实现"><a href="#3-3-案例代码实现" class="headerlink" title="3.3 案例代码实现"></a>3.3 案例代码实现</h3><ul>
+<li><p>在 <code>com.itheima.mapper</code> 包下创建 UserMapper接口，代码如下：</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserMapper</span> &#123;
+    List&lt;User&gt; <span class="title function_">selectAll</span><span class="params">()</span>;
+    User <span class="title function_">selectById</span><span class="params">(<span class="type">int</span> id)</span>;
+&#125;
+<span class="number">1234</span></code></pre>
+</li>
+<li><p>在 <code>resources</code> 下创建 <code>com/itheima/mapper</code> 目录，并在该目录下创建 UserMapper.xml 映射配置文件</p>
+<pre><code class="highlight xml"><span class="comment">&lt;!--</span>
+<span class="comment">    namespace:名称空间。必须是对应接口的全限定名</span>
+<span class="comment">--&gt;</span>
+<span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.itheima.mapper.UserMapper&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.itheima.pojo.User&quot;</span>&gt;</span>
+        select *
+        from tb_user;
+    <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">mapper</span>&gt;</span>
+123456789</code></pre>
+</li>
+<li><p>在 <code>com.itheima</code> 包下创建 MybatisDemo2 测试类，代码如下：</p>
+<pre><code class="highlight java"><span class="comment">/**</span>
+<span class="comment"> * Mybatis 代理开发</span>
+<span class="comment"> */</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBatisDemo2</span> &#123;
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;
+
+        <span class="comment">//1. 加载mybatis的核心配置文件，获取 SqlSessionFactory</span>
+        <span class="type">String</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="string">&quot;mybatis-config.xml&quot;</span>;
+        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Resources.getResourceAsStream(resource);
+        <span class="type">SqlSessionFactory</span> <span class="variable">sqlSessionFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SqlSessionFactoryBuilder</span>().build(inputStream);
+
+        <span class="comment">//2. 获取SqlSession对象，用它来执行sql</span>
+        <span class="type">SqlSession</span> <span class="variable">sqlSession</span> <span class="operator">=</span> sqlSessionFactory.openSession();
+        <span class="comment">//3. 执行sql</span>
+        <span class="comment">//3.1 获取UserMapper接口的代理对象</span>
+        <span class="type">UserMapper</span> <span class="variable">userMapper</span> <span class="operator">=</span> sqlSession.getMapper(UserMapper.class);
+        List&lt;User&gt; users = userMapper.selectAll();
+
+        System.out.println(users);
+        <span class="comment">//4. 释放资源</span>
+        sqlSession.close();
+    &#125;
+&#125;</code></pre></li>
+</ul>
+<p>注意：</p>
+<p>如果Mapper接口名称和SQL映射文件名称相同，并在同一目录下，则可以使用包扫描的方式简化SQL映射文件的加载。也就是将核心配置文件的加载映射配置文件的配置修改为</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span>
+    <span class="comment">&lt;!--加载sql映射文件--&gt;</span>
+    <span class="comment">&lt;!-- &lt;mapper resource=&quot;com/itheima/mapper/UserMapper.xml&quot;/&gt;--&gt;</span>
+    <span class="comment">&lt;!--Mapper代理方式--&gt;</span>
+    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;com.itheima.mapper&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></code></pre>
+
+<h2 id="4-核心配置文件"><a href="#4-核心配置文件" class="headerlink" title="4 核心配置文件"></a>4 核心配置文件</h2><p>核心配置文件中现有的配置之前已经给大家进行了解释，而核心配置文件中还可以配置很多内容。我们可以通过查询官网看可以配置的内容</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/196c807e5d8a75af97e2cf3c26e343f5.png" alt="img"></p>
+<p>接下来我们先对里面的一些配置进行讲解。</p>
+<h3 id="4-1-多环境配置"><a href="#4-1-多环境配置" class="headerlink" title="4.1 多环境配置"></a>4.1 多环境配置</h3><p>在核心配置文件的 <code>environments</code> 标签中其实是可以配置多个 <code>environment</code> ，使用 <code>id</code> 给每段环境起名，在 <code>environments</code> 中使用 <code>default=&#39;环境id&#39;</code> 来指定使用哪儿段配置。我们一般就配置一个 <code>environment</code> 即可。</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;development&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span>
+        <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span>
+            <span class="comment">&lt;!--数据库连接信息--&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///mybatis?useSSL=false&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1234&quot;</span>/&gt;</span>
+        <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">environment</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span>
+        <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span>
+            <span class="comment">&lt;!--数据库连接信息--&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///mybatis?useSSL=false&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span>
+            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1234&quot;</span>/&gt;</span>
+        <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">environment</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">environments</span>&gt;</span></code></pre>
+
+<h3 id="4-2-类型别名"><a href="#4-2-类型别名" class="headerlink" title="4.2 类型别名"></a>4.2 类型别名</h3><p>在映射配置文件中的 <code>resultType</code> 属性需要配置数据封装的类型（类的全限定名）。而每次这样写是特别麻烦的，Mybatis 提供了 <code>类型别名</code>(typeAliases) 可以简化这部分的书写。</p>
+<p>首先需要现在核心配置文件中配置类型别名，也就意味着给pojo包下所有的类起了别名（别名就是类名），不区分大小写。内容如下：</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span>
+    <span class="comment">&lt;!--name属性的值是实体类所在包--&gt;</span>
+    <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;com.itheima.pojo&quot;</span>/&gt;</span> 
+<span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></code></pre>
+
+<p>通过上述的配置，我们就可以简化映射配置文件中 <code>resultType</code> 属性值的编写</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.itheima.mapper.UserMapper&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;user&quot;</span>&gt;</span>
+        select * from tb_user;
+    <span class="tag">&lt;/<span class="name">select</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></code></pre></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://xz613.github.io">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://xz613.github.io/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/">https://xz613.github.io/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://xz613.github.io" target="_blank">他乡遇故知</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avator.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/11/Redis%E5%B0%8F%E7%BB%93/" title="Redis小结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Redis小结</div></div><div class="info-2"><div class="info-item-1">Redis 课程相关笔记一·、概述Redis 是什么？ Redis:  Remote Dictionary Server (远程服务字典)， 用C语言开发的，完全免费的， 最常用的NOSQL 数据库之一。 特点  支持数据的持久化：可以将内存中的数据加载到磁盘中，重启的时候又点出来使用。 支持  String , List , Set ,  Zset ,hash 数据结构的存储。 支持数据的备份 master - slave 模式  ​ 二、redis的持久化Redis的持久化机制 确保了redis的数据不会因为服务器的重启或宕机而丢失数据。Redis 的持久化有两个主要的方式。 1、**RDB (Redis Database)**： 快照持久化 2、AOF (Append Only File):  日志持久化 1、RDB持久化 RDB 持久化方式通常是在隔一段时间里，将Redis的数据集保存为一个二级制文件（通常为 dump.rdb），每当发生rdb持久化时，Redis就会生成一个rdb文件。 工作原理：  Redis会在后台执行 fork()...</div></div></div></a><a class="pagination-related" href="/2025/03/11/Spring%E7%AC%94%E8%AE%B0/" title="Spring笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Spring笔记</div></div><div class="info-2"><div class="info-item-1">Spring笔记IOC对象创建的方式：AOP实现方式AOP:面向切面编程：spring 框架用动态代理技术来支持面像切面编程，spring的动态代理有两种方式： 1、JDK动态代理：基于接口的代理 2、CGLB代理：基于类的代理 需要了解两个类：  proxy ：代理 InvocationHandler ：调用处理程序  ​	Invocation Handler内部只有一个方法 object invoke(objecT proxy,method, object[] args)throws throwable 1、JDK动态代理 ​	JDK动态代理是 Java 本身提供的代理机制，要求目标类必须实现接口。Spring 会创建一个目标接口的代理对象，在该对象上执行方法时，实际回委托给InvocationHandler处理。 回顾ServletServlet 是 Java 编程语言中的一种服务器端技术，用于扩展服务器的功能，尤其是在 Web 应用程序中。它们可以响应客户端（通常是浏览器）发出的请求，并生成动态的 Web 内容。Servlets 是 Java EE（现 Jakarta...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avator.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="/13048559773@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这是我的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis-%E9%BB%91%E9%A9%AC%E8%AF%BE%E7%A8%8B%E5%AF%B9%E5%BA%94%E8%B5%84%E6%96%99"><span class="toc-number">1.</span> <span class="toc-text">MyBatis  黑马课程对应资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Mybatis%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">1 Mybatis概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Mybatis%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 Mybatis概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-JDBC-%E7%BC%BA%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 JDBC 缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Mybatis-%E4%BC%98%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 Mybatis 优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Mybatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">3.</span> <span class="toc-text">2 Mybatis快速入门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Mapper%E4%BB%A3%E7%90%86%E5%BC%80%E5%8F%91"><span class="toc-number">4.</span> <span class="toc-text">3 Mapper代理开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Mapper%E4%BB%A3%E7%90%86%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 Mapper代理开发概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BD%BF%E7%94%A8Mapper%E4%BB%A3%E7%90%86%E8%A6%81%E6%B1%82"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 使用Mapper代理要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%A1%88%E4%BE%8B%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 案例代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">4 核心配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 多环境配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 类型别名</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/11/springboot%E7%AC%94%E8%AE%B0%E5%B0%8F%E7%BB%93/" title="springboot笔记小结">springboot笔记小结</a><time datetime="2025-03-11T11:20:40.000Z" title="发表于 2025-03-11 19:20:40">2025-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/11/%E7%8B%82%E7%A5%9Espring5/" title="狂神spring5">狂神spring5</a><time datetime="2025-03-11T11:14:04.000Z" title="发表于 2025-03-11 19:14:04">2025-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/11/Spring%E7%AC%94%E8%AE%B0/" title="Spring笔记">Spring笔记</a><time datetime="2025-03-11T11:12:33.000Z" title="发表于 2025-03-11 19:12:33">2025-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/11/Mybatis%E9%BB%91%E9%A9%AC%E7%AC%94%E8%AE%B0/" title="Mybatis黑马笔记">Mybatis黑马笔记</a><time datetime="2025-03-11T11:06:54.000Z" title="发表于 2025-03-11 19:06:54">2025-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/11/Redis%E5%B0%8F%E7%BB%93/" title="Redis小结">Redis小结</a><time datetime="2025-03-11T11:00:26.000Z" title="发表于 2025-03-11 19:00:26">2025-03-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By John Doe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.3.5"></script><script src="/js/main.js?v=5.3.5"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
