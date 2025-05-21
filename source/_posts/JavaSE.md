@@ -30,7 +30,7 @@ tags:
 - 健壮的
 - 跨平台性
 
-​
+
 
 ### 第二章：变量与运算符
 
@@ -42,7 +42,7 @@ tags:
 
 ​	地址：[Java Language Keywords (The Java™ Tutorials > Learning the Java Language > Language Basics)](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)
 
-​
+
 
 ​	**标识符**:
 
@@ -50,7 +50,7 @@ tags:
 
 ​	凡是可以自己起名字的地方都叫标识符
 
-​
+
 
 ​	**Java中的名称命名规范;**
 
@@ -96,7 +96,7 @@ tags:
 
 ​	大 --> 小 : 使用强转符号（）;可能会造成精度降低或溢出.
 
-​
+
 
 
 
@@ -122,7 +122,7 @@ tags:
 
 ​	**数组的概念:**多个相同数据类型按一定顺序排列的集合。
 
-​
+
 
 ​	**一维数组的声明方式:**
 
@@ -171,7 +171,7 @@ System.out.println(matrix[0][0]);  // 输出 1
 System.out.println(matrix[2][2]);  // 输出 9
 ```
 
-​
+
 
 **数组中涉及的常见算法**
 
@@ -180,7 +180,7 @@ System.out.println(matrix[2][2]);  // 输出 9
 3. 数组的复制、反转、查找(线性查找，二分查找)
 4. 数组元素的排序算法
 
-​
+
 
 ### 第六章：面向对象(基础)
 
@@ -316,7 +316,7 @@ System.out.println(matrix[2][2]);  // 输出 9
 
 - **定义：**一种特殊的抽象类型，定义的了一组方法的声明，但没有实现。
 
-​
+
 
 ​	**接口和抽象类的区别：**
 
@@ -390,7 +390,7 @@ System.out.println(matrix[2][2]);  // 输出 9
 
 ​					java.lang .Exception: 程序可以处理的异常。
 
-​
+
 
 ```
 Throwable
@@ -468,7 +468,7 @@ public void someMethod() throws IOException, SQLException {
 - 申明多个构造器
 - 申明一个全局常量，static final long serailVersionUID;
 
-​
+
 
 
 
@@ -1136,7 +1136,7 @@ for (元素类型 变量 : 集合或数组) {
 
    **Arraylist  实现线程安全的几种方式。**
 
-   **1）、**使用collections工具类的synchronizedList() 方法。该方法返回一个同步的包装类。所有对列的操作的都会被同步，从而保证线程安全。
+   **1）、**使用collections工具类的synchronizedList() 方法。该方法返回一个同步的包装类。所有队列的操作的都会被同步，从而保证线程安全。
 
    ```
    import java.util.*;
@@ -1262,7 +1262,7 @@ for (元素类型 变量 : 集合或数组) {
 
 2. **linkedList**
 
-    - 特点: 基于双向链表实现，支持在列表的两端进行高效的插入和删除操作。
+    - 特点: 基于双向链表实现，支持在列表的两端进行高效的插入和删除操作，是**线程不安全**的。
     - 适用场景: 当你需要在列表的两端插入/删除元素时
 
    ```
@@ -1334,8 +1334,9 @@ Collection 的子接口，没有提供额外的方法，不允许包含相同的
 
 1. **HashSet**
 
-- 简介：	基于 Hash 表实现，不保证元素的实现。
+- 简介：	基于 Hashmap 实现，不保证元素的顺序；线程不安全。
 - 特点：        元素的存储不可预测，及插入顺序和取出顺序不一样。
+- null:            允许
 
 ```
 import java.util.HashSet;
@@ -1353,9 +1354,15 @@ public class HashSetExample {
 }
 ```
 
+
+
 **2.LinkedHashSet**
 
-- 简介： LinkedhashSet 是HashSet 的子类，内部使用链表来维护元素的插入顺序。因此，他比HashSet多了一个按差如插入顺序访问元素的功能。
+- **简介：**保留元素的插入顺序；线程不安全。
+
+- **底层结构：**Hashmap + 双向链表。
+- 性能稍慢，但保持顺序。 
+- null ： 允许
 
 ```
 import java.util.LinkedHashSet;
@@ -1375,9 +1382,13 @@ public class LinkedHashSetExample {
 
 **3.TreeSet**
 
-- 简介：TreeSet是基于TreeMap  实现的，使用红黑树来存储元素，因此元素自动按升序排列。
+- **简介：**元素会自动排序（默认升序）。线程不安全的。
 
-- 使用场景:  适用于需要有序元素的去重操作。
+- **底层结构：**红黑树
+
+- **使用场景**:  适用于需要有序元素的去重操作。
+
+- **不能添加 null,** (会 nullPointerException)
 
 ```
 import java.util.TreeSet;
@@ -1396,15 +1407,34 @@ public class TreeSetExample {
 }
 ```
 
+**4、CopyOnWriteArraySet**
+
+- **高并发读**，多线程场景推荐。线程安全的。
+- 写操作时复制整个数组（开销大，适合读多写少的场景）。
+- 元素唯一性基于equals()。
+- null : 允许
+
+```
+Set<String> set = new CopyOnWriteArraySet<>();
+set.add("A");
+set.add("B");
+```
+
+常用于缓存、白名单、配置更新等**读多写少**的场景。
+
+
+
+
+
 **比较与总结**
 
-| **特性**                   | **HashSet**          | **LinkedHashSet**                        | **TreeSet**                  |
-| -------------------------- | -------------------- | ---------------------------------------- | ---------------------------- |
-| **存储顺序**               | 不保证顺序           | 保证插入顺序                             | 按自然顺序或自定义顺序排序   |
-| **底层实现**               | 哈希表（`HashMap`）  | 哈希表 + 链表                            | 红黑树                       |
-| **是否允许 `null`**        | 允许                 | 允许                                     | 不允许                       |
-| **时间复杂度（平均情况）** | O(1)                 | O(1)                                     | O(log n)                     |
-| **适用场景**               | 无序去重，性能要求高 | 保证插入顺序，较少操作需要按顺序访问元素 | 有序去重，元素需要按顺序排列 |
+| **特性**                   | **HashSet**          | **LinkedHashSet**                        | **TreeSet**                  | CopyOnWriteArraySet                   |
+| -------------------------- | -------------------- | ---------------------------------------- | ---------------------------- | ------------------------------------- |
+| **存储顺序**               | 不保证顺序           | 保证插入顺序                             | 按自然顺序或自定义顺序排序   | 保证插入顺序                          |
+| **底层实现**               | 哈希表（`HashMap`）  | 哈希表 + 链表                            | 红黑树                       | 底层封装了一个 `CopyOnWriteArrayList` |
+| **是否允许 `null`**        | 允许                 | 允许                                     | 不允许                       | 不能插入，会 nullpointerException     |
+| **时间复杂度（平均情况）** | O(1)                 | O(1)                                     | O(log n)                     |                                       |
+| **适用场景**               | 无序去重，性能要求高 | 保证插入顺序，较少操作需要按顺序访问元素 | 有序去重，元素需要按顺序排列 | 多线程场景使用。                      |
 
 **总结**
 
@@ -1436,9 +1466,11 @@ public class TreeSetExample {
 
 **1）、HashMap**
 
-- 实现原理：JDK1.7： 数组 + 链表，JDK1.8 ：数组+ 链表 + 红黑树。是线程不安全的。
+- **实现原理**：JDK1.7： 数组 + 链表，JDK1.8 ：数组+ 链表 + 红黑树。是线程不安全的。
 
-- 应用场景：适合需要快速查找，插入和删除，通常应用于大多数map普通的应用场景。
+- **应用场景**：适合需要快速查找，插入和删除，通常应用于大多数map普通的应用场景。
+
+- **null:**   允许一个 null key，多个 null value。
 
 ```
 import java.util.HashMap;
@@ -1542,8 +1574,9 @@ public V put(K key, V value) {
 
 **2）、LinkedHashMap**
 
-- 实现原理：LinkedHashMap 继承自HashMap,并且使用双向链表维护键值对的插入顺序或访问顺序。也是线程不安全的。
-- 应用场景:适合需要保留插入顺序或访问顺序的应用
+- **实现原理**：LinkedHashMap 继承自HashMap,并且使用**双向链表**维护键值对的插入顺序或访问顺序。也是**线程不安全**的。
+- **应用场景**：适合需要保留插入顺序或访问顺序的应用
+- **null**：允许一个null key，允许多个null value
 
 ```
 import java.util.LinkedHashMap;
@@ -1569,6 +1602,7 @@ public class LinkedHashMapExample {
 
 - 实现原理：基于红黑树(白平衡二叉查找树)实现的 Map,也是线程不安全的。
 - 应用场景:  适合需要按排序顺序访问为元素的场景
+- null： 不允许null key 
 
 ```
 import java.util.Map;
@@ -1591,8 +1625,9 @@ public class TreeMapExample {
 
 **4）、HashTable**
 
-- 实现原理：是早期的哈希表实现，类似于Hashmap,但是它是线程安全的。所有的方法都被同步。
+- 实现原理：是早期的哈希表实现，类似于Hashmap,但是它是**线程安全的**。所有的方法都被同步。
 - 应用场景:主要用于一些老旧的应用。
+- null ： 不允许
 
 ```
 import java.util.Hashtable;
@@ -2243,7 +2278,7 @@ public class FileCopyExample {
 
 - **`File` 类**：用于文件和目录的操作
 
-​
+
 
 
 
