@@ -9,17 +9,6 @@ nav:
 
 # Menu 目录
 menu:
-# Home: / || fas fa-home
-# Archives: /archives/ || fas fa-archive
-# Tags: /tags/ || fas fa-tags
-# Categories: /categories/ || fas fa-folder-open
-# List||fas fa-list:
-#   Music: /music/ || fas fa-music
-#   Movie: /movies/ || fas fa-video
-# Link: /link/ || fas fa-link
-# About: /about/ || fas fa-heart
-# Menu 目錄
-Menu:
   首页: / || fas fa-home
   归档: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
@@ -28,7 +17,7 @@ Menu:
     音乐: /music/ || fas fa-music
     电影: /movies/ || fas fa-video
   友情链接: /link/ || fas fa-link
-  关于我们: /about/ || fas fa-heart
+  关于: /about/ || fas fa-heart
 
 
 # Code Blocks (代码块相关)
@@ -48,15 +37,14 @@ highlight_fullpage: true # true: 添加切换全屏的按钮
 # 正式:
 #   icon: 链接 || 描述 || 颜色
 social:
-  fas fa-envelope: 13048559773@163.com || Email || '#4a7dbe'
-# fab fa-github: https://github.com/xxxxx || Github || '#24292e'
-# fas fa-envelope: mailto:xxxxxx@gmail.com || Email || '#4a7dbe'
+  fab fa-github: https://github.com/xz613 || Github || '#24292e'
+  fas fa-envelope: mailto:13048559773@163.com || Email || '#4a7dbe'
 
 # Image (图片设置)
 # --------------------------------------
 
 # Favicon（网站图标）
-favicon: /img/favicon.png
+favicon: /img/favicon.ico
 
 # Avatar (头像)
 avatar:
@@ -72,7 +60,7 @@ index_img: /img/leaf.jpg
 
 # 如果页面没有设置横幅，则显示顶部图片
 default_top_img:
-  url: /img/bj.png
+  url: /img/bj.jpg
 # 归档页面的横幅图片
 archive_img:
 
@@ -259,15 +247,15 @@ aside:
     category: true
   card_author:
     enable: true
-    description:
+    description: Java 后端学习笔记
     button:
       enable: true
       icon: fab fa-github
       text: 关注我
-      link: https://github.com/xxxxxx
+      link: https://github.com/xz613
   card_announcement:
     enable: true
-    content: 这是我的博客
+    content: 记录 Java 后端学习路上的点滴
   card_recent_post:
     enable: true
     limit: 5 # 如果设置为 0 将显示全部

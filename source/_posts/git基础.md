@@ -1,15 +1,10 @@
 ---
 title: git基础
-date: 2025-03-11 14:28:00
-tags:
----
-
-
----
-title: git基础
 date: 2024-07-22 14:02:48
 tags:
-
+  - Git
+categories:
+  - 工具
 ---
 
 # Git基础篇及一些常用指令

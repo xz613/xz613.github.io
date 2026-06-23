@@ -1,0 +1,15 @@
+- class_name: 技术社区
+  class_desc: 常用的学习与参考资料
+  link_list:
+    - name: Hexo
+      link: https://hexo.io
+      avatar: https://hexo.io/favicon.ico
+      descr: 快速、简洁且高效的博客框架
+    - name: Spring
+      link: https://spring.io
+      avatar: https://spring.io/favicon.ico
+      descr: Spring 官方文档与生态
+    - name: GitHub
+      link: https://github.com
+      avatar: https://github.com/favicon.ico
+      descr: 代码托管与开源社区

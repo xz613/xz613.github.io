@@ -2,6 +2,9 @@
 title: JavaSE
 date: 2025-03-11 18:48:31
 tags:
+  - Java
+categories:
+  - Java
 ---
 
 ### 第一章：Java语言概述

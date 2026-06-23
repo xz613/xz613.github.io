@@ -2,6 +2,9 @@
 title: MySQL基础知识
 date: 2025-03-11 18:56:55
 tags:
+  - MySQL
+categories:
+  - 数据库
 ---
 
 ## 第二章: 查询语句

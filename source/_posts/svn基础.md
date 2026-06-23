@@ -2,7 +2,9 @@
 title: svn基础
 date: 2024-07-22 12:28:05
 tags:
-
+  - SVN
+categories:
+  - 工具
 ---
 
 # SVN 基础篇及常用指令

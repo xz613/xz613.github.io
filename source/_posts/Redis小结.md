@@ -2,6 +2,9 @@
 title: Redis小结
 date: 2025-03-11 19:00:26
 tags:
+  - Redis
+categories:
+  - 中间件
 ---
 
 ## **Redis 课程相关笔记**

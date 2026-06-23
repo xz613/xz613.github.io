@@ -2,6 +2,9 @@
 title: Mybatis黑马笔记
 date: 2025-03-11 19:06:54
 tags:
+  - MyBatis
+categories:
+  - 数据库
 ---
 
 ## MyBatis  黑马课程对应资料

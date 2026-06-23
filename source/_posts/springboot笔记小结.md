@@ -2,6 +2,9 @@
 title: springboot笔记小结
 date: 2025-03-11 19:20:40
 tags:
+  - SpringBoot
+categories:
+  - Java
 ---
 ### springboot 文档参考连接：
 

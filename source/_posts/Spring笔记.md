@@ -2,6 +2,9 @@
 title: Spring笔记
 date: 2025-03-11 19:12:33
 tags:
+  - Spring
+categories:
+  - Java
 ---
 ## Spring笔记
 

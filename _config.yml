@@ -5,9 +5,9 @@
 # Site
 title: '他乡遇故知'
 subtitle: '一步一句是相思'
-description: ''
-keywords:
-author: John Doe
+description: 'Java 后端学习笔记与技术博客'
+keywords: Java, Spring, MySQL, Redis, Git
+author: xz613
 #语言的选择  en - 英语 zh-CN - 中文
 language: zh-CN
 timezone: ''
