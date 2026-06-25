@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: '他乡遇故知'
-subtitle: '一步一句是相思'
-description: 'Java 后端学习笔记与技术博客'
-keywords: Java, Spring, MySQL, Redis, Git
-author: xz613
+title: '张鱼哥'
+subtitle: '一个专注于分享Java后端  和 AI 技术的博客'
+description: 'Java + AI 后端学习笔记与技术博客'
+keywords: AI, Java, Spring, MySQL, Redis, Git
+author: 张鱼哥
 #语言的选择  en - 英语 zh-CN - 中文
 language: zh-CN
 timezone: ''
