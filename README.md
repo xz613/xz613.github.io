@@ -171,7 +171,17 @@ on:
 
 #### 前提条件
 
-在 GitHub 仓库 **Settings → Pages** 中，需要将 **Build and deployment → Source** 设置为 **GitHub Actions**，而不是某个分支（如 `view`）。若仍指向分支部署，push 到 `main` 虽会运行 Action，但线上页面可能不会更新。
+在 GitHub 仓库 **Settings → Pages** 中，需要将 **Build and deployment → Source** 设置为 **GitHub Actions**，而不是 `view` 等分支。
+
+> 若 Source 仍指向 `view` 分支，线上会显示旧版内容（例如作者仍为 John Doe、标签/分类为 0），与本地预览不一致。
+
+#### 部署失败排查
+
+若 push 后站点未更新，请到 **Actions** 页查看 **Pages** 工作流是否成功。常见原因：
+
+1. **Pages 源未切换到 GitHub Actions**（见上文）
+2. **工作流执行失败**（构建报错时需根据日志修复）
+3. **浏览器缓存**（可强制刷新或无痕模式访问）
 
 #### 注意事项
 
