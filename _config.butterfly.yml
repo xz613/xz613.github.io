@@ -247,7 +247,7 @@ aside:
     category: true
   card_author:
     enable: true
-    description: Java 后端学习笔记
+    description: Java 后端 + AI学习笔记
     button:
       enable: true
       icon: fab fa-github
